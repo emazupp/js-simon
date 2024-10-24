@@ -2,7 +2,10 @@ const simonContainerNumbers = document.querySelectorAll(".simon-numbers");
 const secondsRemainingCounter = document.getElementById("seconds-remaining");
 const numbersForm = document.getElementById("numbers-form");
 const result = document.getElementById("result");
+const resetButton = document.getElementById("reset-button");
 const secondsToDisappear = 5;
+let countdownInterval;
+let resetInputValueInverval;
 let simonNumbers = [];
 let secondsRemaining = secondsToDisappear;
 secondsRemainingCounter.innerHTML = secondsRemaining;
@@ -33,6 +36,13 @@ const countdown = () => {
         
     }
 } */
+const startInterval = () => {
+  countdownInterval = setInterval(countdown, 1000);
+  resetInputValueInverval = setInterval(
+    resetInputValue,
+    secondsToDisappear * 1000
+  );
+};
 
 numbersForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -48,14 +58,19 @@ numbersForm.addEventListener("submit", (e) => {
   /* showNumberGuessed(); */
 });
 
+resetButton.addEventListener("click", () => {
+  secondsRemaining = secondsToDisappear;
+  for (let i = 0; i < 5; i++) {
+    simonNumbers[i] = generateNumber(0, 20);
+    simonContainerNumbers[i].value = simonNumbers[i];
+  }
+  startInterval();
+});
+
 /* popolo l'array di valori casuali */
 for (let i = 0; i < 5; i++) {
   simonNumbers[i] = generateNumber(0, 20);
   simonContainerNumbers[i].value = simonNumbers[i];
 }
 
-const countdownInterval = setInterval(countdown, 1000);
-const resetInputValueInverval = setInterval(
-  resetInputValue,
-  secondsToDisappear * 1000
-);
+startInterval();
