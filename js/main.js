@@ -1,7 +1,8 @@
 const simonContainerNumbers = document.querySelectorAll(".simon-numbers");
 const secondsRemainingCounter = document.getElementById("seconds-remaining");
 const numbersForm = document.getElementById("numbers-form");
-const secondsToDisappear = 2;
+const result = document.getElementById("result");
+const secondsToDisappear = 5;
 let simonNumbers = [];
 let secondsRemaining = secondsToDisappear;
 secondsRemainingCounter.innerHTML = secondsRemaining;
@@ -26,23 +27,25 @@ const countdown = () => {
   secondsRemaining--;
   secondsRemainingCounter.innerHTML = secondsRemaining;
 };
-const userNumbers = [];
+
+/* const showNumberGuessed = () => {
+    for(let i = 0; i< simonNumbers.length; i++) {
+        
+    }
+} */
 
 numbersForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const numberGuesses = [];
+  const userNumbers = [];
+  const numberGuessed = [];
   for (let i = 0; i < 5; i++) {
-    userNumbers[i] = simonContainerNumbers[i].value;
-    console.log("userNumbers[i]: ", userNumbers[i]);
-    console.log(simonNumbers);
-    console.log(
-      "condizione if, se simonnumbers includes usernumber[i] ",
-      simonNumbers.includes(userNumbers[i])
-    );
+    userNumbers[i] = parseInt(simonContainerNumbers[i].value);
     if (simonNumbers.includes(userNumbers[i]))
-      numberGuesses.push(userNumbers[i]);
+      numberGuessed.push(userNumbers[i]);
   }
-  console.table(numberGuesses);
+  resetInputValue();
+  result.innerHTML = `Hai indovinato i numeri: ${numberGuessed}`;
+  /* showNumberGuessed(); */
 });
 
 /* popolo l'array di valori casuali */
