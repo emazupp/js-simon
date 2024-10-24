@@ -1,4 +1,4 @@
-/* const simonContainerNumbers = document.querySelectorAll(".simon-numbers");
+const simonContainerNumbers = document.querySelectorAll(".simon-numbers");
 const numbersForm = document.getElementById("numbers-form");
 const result = document.getElementById("result");
 const resetButton = document.getElementById("reset-button");
@@ -11,7 +11,8 @@ let numberGuessed = [];
 let secondsRemaining = secondsToDisappear;
 
 const generateNumber = (min, max) => {
-  return Math.floor(Math.random() * (max - min) + min);
+  const num = Math.floor(Math.random() * (max - min) + min);
+  return simonNumbers.includes(num) ? generateNumber(0, 20) : num;
 };
 
 const populateArray = () => {
@@ -87,14 +88,3 @@ resetButton.addEventListener("click", () => {
 
 startInterval();
 populateArray();
- */
-let array = [];
-function generanumero() {
-  const num = Math.floor(Math.random() * 10 - 1) + 1;
-  return array.includes(num) ? generanumero() : num;
-}
-
-for (let i = 0; i < 10; i++) {
-  array[i] = generanumero();
-}
-console.log(array);
