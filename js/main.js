@@ -14,6 +14,13 @@ const generateNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
+const populateArray = () => {
+  for (let i = 0; i < 5; i++) {
+    simonNumbers[i] = generateNumber(0, 20);
+    simonContainerNumbers[i].value = simonNumbers[i];
+  }
+};
+
 const resetInputValue = () => {
   if (secondsRemaining <= 1) {
     clearInterval(resetInputValueInverval);
@@ -31,11 +38,6 @@ const countdown = () => {
   secondsRemainingCounter.innerHTML = secondsRemaining;
 };
 
-/* const showNumberGuessed = () => {
-    for(let i = 0; i< simonNumbers.length; i++) {
-        
-    }
-} */
 const startInterval = () => {
   countdownInterval = setInterval(countdown, 1000);
   resetInputValueInverval = setInterval(
@@ -55,22 +57,13 @@ numbersForm.addEventListener("submit", (e) => {
   }
   resetInputValue();
   result.innerHTML = `Hai indovinato i numeri: ${numberGuessed}`;
-  /* showNumberGuessed(); */
 });
 
 resetButton.addEventListener("click", () => {
   secondsRemaining = secondsToDisappear;
-  for (let i = 0; i < 5; i++) {
-    simonNumbers[i] = generateNumber(0, 20);
-    simonContainerNumbers[i].value = simonNumbers[i];
-  }
+  populateArray();
   startInterval();
 });
 
-/* popolo l'array di valori casuali */
-for (let i = 0; i < 5; i++) {
-  simonNumbers[i] = generateNumber(0, 20);
-  simonContainerNumbers[i].value = simonNumbers[i];
-}
-
 startInterval();
+populateArray();
