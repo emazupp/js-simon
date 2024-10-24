@@ -3,21 +3,25 @@ const numbersForm = document.getElementById("numbers-form");
 const result = document.getElementById("result");
 const resetButton = document.getElementById("reset-button");
 const title = document.getElementById("title");
-const secondsToDisappear = 5;
+const secondsToDisappear = 30; //SET SECONDI PRIMA CHE SCOMPAIONO I VALORI
 let countdownInterval;
 let resetInputValueInverval;
 let simonNumbers = [];
 let numberGuessed = [];
+let userNumbers = [];
 let secondsRemaining = secondsToDisappear;
+
+const minNumberGen = 0; //SET MINIMO NUMERI GENERATI
+const maxNumberGen = 100; //SET MASSIMO NUMERI GENERATI
 
 const generateNumber = (min, max) => {
   const num = Math.floor(Math.random() * (max - min) + min);
-  return simonNumbers.includes(num) ? generateNumber(0, 20) : num;
+  return simonNumbers.includes(num) ? generateNumber(min, max) : num;
 };
 
 const populateArray = () => {
   for (let i = 0; i < 5; i++) {
-    simonNumbers[i] = generateNumber(0, 20);
+    simonNumbers[i] = generateNumber(minNumberGen, maxNumberGen);
     simonContainerNumbers[i].value = simonNumbers[i];
     resetColor(i);
   }
@@ -62,18 +66,42 @@ const resetColor = (i) => {
   simonContainerNumbers[i].classList.remove("bg-success");
 };
 
-numbersForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const userNumbers = [];
-  numberGuessed = [];
+const validateUserNumbers = () => {
+  let numberOfRepetitions = 0;
   for (let i = 0; i < 5; i++) {
     userNumbers[i] = parseInt(simonContainerNumbers[i].value);
-    if (simonNumbers.includes(userNumbers[i]))
-      numberGuessed.push(userNumbers[i]);
+    if (isNaN(userNumbers[i])) return false;
   }
-  resetInputValue();
-  showGreenGuessedNumbers();
-  result.innerHTML = `Hai indovinato i numeri: ${numberGuessed}`;
+  for (let i = 0; i < userNumbers.length; i++) {
+    const currentUserNumber = userNumbers[i];
+    numberOfRepetitions = 0;
+    for (let j = 0; j < userNumbers.length; j++) {
+      if (currentUserNumber == userNumbers[j]) numberOfRepetitions++;
+    }
+    if (numberOfRepetitions > 1) return false;
+  }
+  return true;
+};
+
+numbersForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  userNumbers = [];
+  numberGuessed = [];
+  if (validateUserNumbers()) {
+    for (let i = 0; i < 5; i++) {
+      if (simonNumbers.includes(userNumbers[i]))
+        numberGuessed.push(userNumbers[i]);
+    }
+    resetInputValue();
+    showGreenGuessedNumbers();
+    result.classList.remove("text-danger");
+    result.classList.add("text-success");
+    result.innerHTML = `Hai indovinato i numeri: ${numberGuessed}`;
+  } else {
+    result.classList.remove("text-success");
+    result.classList.add("text-danger");
+    result.innerHTML = `Non sono ammesse parole o doppioni`;
+  }
 });
 
 resetButton.addEventListener("click", () => {
