@@ -3,10 +3,11 @@ const secondsRemainingCounter = document.getElementById("seconds-remaining");
 const numbersForm = document.getElementById("numbers-form");
 const result = document.getElementById("result");
 const resetButton = document.getElementById("reset-button");
-const secondsToDisappear = 30;
+const secondsToDisappear = 5;
 let countdownInterval;
 let resetInputValueInverval;
 let simonNumbers = [];
+let numberGuessed = [];
 let secondsRemaining = secondsToDisappear;
 secondsRemainingCounter.innerHTML = secondsRemaining;
 
@@ -18,6 +19,7 @@ const populateArray = () => {
   for (let i = 0; i < 5; i++) {
     simonNumbers[i] = generateNumber(0, 20);
     simonContainerNumbers[i].value = simonNumbers[i];
+    resetColor(i);
   }
 };
 
@@ -46,23 +48,40 @@ const startInterval = () => {
   );
 };
 
+const showGreenGuessedNumbers = () => {
+  let indexShowGreen;
+  for (let i = 0; i < numberGuessed.length; i++) {
+    indexShowGreen = simonNumbers.indexOf(numberGuessed[i]);
+    simonContainerNumbers[indexShowGreen].classList.add("bg-success");
+    simonContainerNumbers[indexShowGreen].value = simonNumbers[indexShowGreen];
+  }
+};
+
+const resetColor = (i) => {
+  simonContainerNumbers[i].classList.remove("bg-success");
+};
+
 numbersForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const userNumbers = [];
-  const numberGuessed = [];
+  numberGuessed = [];
   for (let i = 0; i < 5; i++) {
     userNumbers[i] = parseInt(simonContainerNumbers[i].value);
     if (simonNumbers.includes(userNumbers[i]))
       numberGuessed.push(userNumbers[i]);
   }
   resetInputValue();
+  showGreenGuessedNumbers();
   result.innerHTML = `Hai indovinato i numeri: ${numberGuessed}`;
 });
 
 resetButton.addEventListener("click", () => {
   secondsRemaining = secondsToDisappear;
+  clearInterval(countdownInterval);
+  clearInterval(resetInputValueInverval);
   populateArray();
   startInterval();
+  result.innerHTML = "";
 });
 
 startInterval();
