@@ -1,15 +1,14 @@
-const simonContainerNumbers = document.querySelectorAll(".simon-numbers");
-const secondsRemainingCounter = document.getElementById("seconds-remaining");
+/* const simonContainerNumbers = document.querySelectorAll(".simon-numbers");
 const numbersForm = document.getElementById("numbers-form");
 const result = document.getElementById("result");
 const resetButton = document.getElementById("reset-button");
+const title = document.getElementById("title");
 const secondsToDisappear = 5;
 let countdownInterval;
 let resetInputValueInverval;
 let simonNumbers = [];
 let numberGuessed = [];
 let secondsRemaining = secondsToDisappear;
-secondsRemainingCounter.innerHTML = secondsRemaining;
 
 const generateNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
@@ -25,6 +24,7 @@ const populateArray = () => {
 
 const resetInputValue = () => {
   if (secondsRemaining <= 1) {
+    title.innerHTML = "Spero che hai memorizzato i numeri, INSERISCILI!";
     clearInterval(resetInputValueInverval);
   }
   for (let i = 0; i < 5; i++) {
@@ -37,7 +37,7 @@ const countdown = () => {
     clearInterval(countdownInterval);
   }
   secondsRemaining--;
-  secondsRemainingCounter.innerHTML = secondsRemaining;
+  title.innerHTML = `Questi numeri scompariranno in ${secondsRemaining} secondi`;
 };
 
 const startInterval = () => {
@@ -82,7 +82,19 @@ resetButton.addEventListener("click", () => {
   populateArray();
   startInterval();
   result.innerHTML = "";
+  title.innerHTML = `Questi numeri scompariranno in ${secondsToDisappear} secondi`;
 });
 
 startInterval();
 populateArray();
+ */
+let array = [];
+function generanumero() {
+  const num = Math.floor(Math.random() * 10 - 1) + 1;
+  return array.includes(num) ? generanumero() : num;
+}
+
+for (let i = 0; i < 10; i++) {
+  array[i] = generanumero();
+}
+console.log(array);
