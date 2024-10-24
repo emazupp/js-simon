@@ -3,7 +3,7 @@ const numbersForm = document.getElementById("numbers-form");
 const result = document.getElementById("result");
 const resetButton = document.getElementById("reset-button");
 const title = document.getElementById("title");
-const secondsToDisappear = 30; //SET SECONDI PRIMA CHE SCOMPAIONO I VALORI
+const secondsToDisappear = 5; //SET SECONDI PRIMA CHE SCOMPAIONO I VALORI
 let countdownInterval;
 let resetInputValueInverval;
 let simonNumbers = [];
@@ -93,10 +93,16 @@ numbersForm.addEventListener("submit", (e) => {
         numberGuessed.push(userNumbers[i]);
     }
     resetInputValue();
-    showGreenGuessedNumbers();
-    result.classList.remove("text-danger");
-    result.classList.add("text-success");
-    result.innerHTML = `Hai indovinato i numeri: ${numberGuessed}`;
+    if (numberGuessed.length > 0) {
+      showGreenGuessedNumbers();
+      result.classList.remove("text-danger");
+      result.classList.add("text-success");
+      result.innerHTML = `Hai indovinato i numeri: ${numberGuessed}`;
+    } else {
+      result.classList.remove("text-success");
+      result.classList.add("text-danger");
+      result.innerHTML = `Mi dispiace non hai indovinato neanche un numero`;
+    }
   } else {
     result.classList.remove("text-success");
     result.classList.add("text-danger");
