@@ -3,7 +3,7 @@ const secondsRemainingCounter = document.getElementById("seconds-remaining");
 const numbersForm = document.getElementById("numbers-form");
 const result = document.getElementById("result");
 const resetButton = document.getElementById("reset-button");
-const secondsToDisappear = 5;
+const secondsToDisappear = 30;
 let countdownInterval;
 let resetInputValueInverval;
 let simonNumbers = [];
