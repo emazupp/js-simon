@@ -19,45 +19,64 @@
 
   <body>
     <div class="container">
-      <h1 class="h3 text-center my-3">JS SIMON</h1>
+      <h1 class="h3 text-center my-3 fw-bold">JS SIMON</h1>
       <div class="card">
         <h2 class="h5 text-center mt-3">
-          QUESTI NUMERI SCOMPARIRANNO IN 30 SECONDI
+          QUESTI NUMERI SCOMPARIRANNO IN
+          <span id="seconds-remaining"></span> SECONDI
         </h2>
-        <div class="row d-flex justify-content-evenly">
-          <div class="col-auto p-2">
-            <p class="simon-numbers fw-bold fs-3"></p>
+        <form class="numbers-form">
+          <div class="row d-flex justify-content-center mt-4 pb-3">
+            <div class="col-2">
+              <input
+                class="form-control simon-numbers text-center fw-bold"
+                id="autoSizingInputGroup"
+                type="text"
+              />
+            </div>
+            <div class="col-2">
+              <input
+                class="form-control simon-numbers text-center fw-bold"
+                id="autoSizingInputGroup"
+                type="text"
+              />
+            </div>
+            <div class="col-2">
+              <input
+                class="form-control simon-numbers text-center fw-bold"
+                id="autoSizingInputGroup"
+                type="text"
+              />
+            </div>
+            <div class="col-2">
+              <input
+                class="form-control simon-numbers text-center fw-bold"
+                id="autoSizingInputGroup"
+                type="text"
+              />
+            </div>
+            <div class="col-2">
+              <input
+                class="form-control simon-numbers text-center fw-bold"
+                id="autoSizingInputGroup"
+                type="text"
+              />
+            </div>
+            <div class="row mt-3">
+              <div class="col-5 d-flex justify-content-end">
+                <button class="rounded btn btn-secondary p-2" type="submit">
+                  INVIA
+                </button>
+              </div>
+              <div class="col-2"></div>
+              <div class="col-5 d-flex justify-content-start">
+                <button class="rounded btn btn-secondary p-2" type="button">
+                  ANNULLA
+                </button>
+              </div>
+            </div>
           </div>
-          <div class="col-auto p-2">
-            <p class="simon-numbers fw-bold fs-3"></p>
-          </div>
-          <div class="col-auto p-2">
-            <p class="simon-numbers fw-bold fs-3"></p>
-          </div>
-          <div class="col-auto p-2">
-            <p class="simon-numbers fw-bold fs-3"></p>
-          </div>
-          <div class="col-auto p-2">
-            <p class="simon-numbers fw-bold fs-3"></p>
-          </div>
-        </div>
-        <div class="row d-flex justify-content-center pb-3">
-          <div class="col-2">
-            <input class="form-control" id="autoSizingInputGroup" type="text" />
-          </div>
-          <div class="col-2">
-            <input class="form-control" id="autoSizingInputGroup" type="text" />
-          </div>
-          <div class="col-2">
-            <input class="form-control" id="autoSizingInputGroup" type="text" />
-          </div>
-          <div class="col-2">
-            <input class="form-control" id="autoSizingInputGroup" type="text" />
-          </div>
-          <div class="col-2">
-            <input class="form-control" id="autoSizingInputGroup" type="text" />
-          </div>
-        </div>
+        </form>
       </div>
     </div>
     <script
